@@ -26,7 +26,14 @@ country_col <- WorldCities$country
 
 unique(country_col)
 
-#WorldCities has 200 observations and 10 variables.
+WorldCities has 200 observations and 10 variables.
 
-#The variable names include: "code", "name", "population", and "country".
+The variable names include: "code", "name", "population", and "country".
+
+
+Question 2)
+
+WorldCities%>%select(region)%>%unique()
+
+
 ```{r load_packages, warning=FALSE, message=FALSE}
