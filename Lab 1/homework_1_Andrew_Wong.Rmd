@@ -1,0 +1,32 @@
+---
+title: "COMPSCIX 415.2 Homework 1"
+author: "Andrew Wong"
+date: "February 2, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+My Github repository for my assignments can be found at this URL: https://github.com/anwong024/compscix-415-2-assignments
+
+library("tidyverse")
+
+library("mdsr")
+
+data("worldcities")
+
+Question 1)
+
+glimpse(worldcities)
+
+WorldCities <- head(WorldCities, 200)
+
+country_col <- WorldCities$country
+
+unique(country_col)
+
+#WorldCities has 200 observations and 10 variables.
+
+#The variable names include: "code", "name", "population", and "country".
+```{r load_packages, warning=FALSE, message=FALSE}
