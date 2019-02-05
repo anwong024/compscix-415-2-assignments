@@ -35,5 +35,7 @@ Question 2)
 
 WorldCities%>%select(region)%>%unique()
 
+Question 3)
 
+WorldCities%>%select(country)%>%unique()
 ```{r load_packages, warning=FALSE, message=FALSE}
