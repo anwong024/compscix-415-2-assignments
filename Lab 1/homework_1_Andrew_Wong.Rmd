@@ -9,22 +9,25 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 My Github repository for my assignments can be found at this URL: https://github.com/anwong024/compscix-415-2-assignments
+```{r}
 
 library("tidyverse")
 
 library("mdsr")
 
 data("worldcities")
+```
 
 Question 1)
-
-glimpse(worldcities)
+```{r}
+glimpse(WorldCities)
 
 WorldCities <- head(WorldCities, 200)
 
 country_col <- WorldCities$country
 
 unique(country_col)
+```
 
 WorldCities has 200 observations and 10 variables.
 
@@ -32,14 +35,20 @@ The variable names include: "code", "name", "population", and "country".
 
 
 Question 2)
+```{r}
 
 WorldCities%>%select(region)%>%unique()
+```
 
 Question 3)
+```{r}
 
 WorldCities%>%select(country)%>%unique()
+```
 
 Question 4)
+```{r}
 
 WorldCities %>% ggplot(aes(x = population)) + geom_histogram() + ggtitle('City Population Frequency') + theme_bw() + xlab('City Population') + ylab('Number of Cities')
+```
 ```{r load_packages, warning=FALSE, message=FALSE}
