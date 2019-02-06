@@ -200,12 +200,14 @@ $(document).ready(function () {
 <p>WorldCities &lt;- head(WorldCities, 200)</p>
 <p>country_col &lt;- WorldCities$country</p>
 <p>unique(country_col)</p>
-<div id="worldcities-has-200-observations-and-10-variables." class="section level1">
-<h1>WorldCities has 200 observations and 10 variables.</h1>
-</div>
-<div id="the-variable-names-include-code-name-population-and-country." class="section level1">
-<h1>The variable names include: “code”, “name”, “population”, and “country”.</h1>
-</div>
+<p>WorldCities has 200 observations and 10 variables.</p>
+<p>The variable names include: “code”, “name”, “population”, and “country”.</p>
+<p>Question 2)</p>
+<p>WorldCities%&gt;%select(region)%&gt;%unique()</p>
+<p>Question 3)</p>
+<p>WorldCities%&gt;%select(country)%&gt;%unique()</p>
+<p>Question 4)</p>
+<p>WorldCities %&gt;% ggplot(aes(x = population)) + geom_histogram() + ggtitle(‘City Population Frequency’) + theme_bw() + xlab(‘City Population’) + ylab(‘Number of Cities’)</p>
 
 
 

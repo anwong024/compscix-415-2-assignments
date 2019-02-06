@@ -38,4 +38,8 @@ WorldCities%>%select(region)%>%unique()
 Question 3)
 
 WorldCities%>%select(country)%>%unique()
+
+Question 4)
+
+WorldCities %>% ggplot(aes(x = population)) + geom_histogram() + ggtitle('City Population Frequency') + theme_bw() + xlab('City Population')+ ylab('Number of Cities')
 ```{r load_packages, warning=FALSE, message=FALSE}
