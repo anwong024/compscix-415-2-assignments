@@ -1,0 +1,66 @@
+---
+title: "COMPSCIX 415.2 Homework 2"
+author: "Andrew Wong"
+date: "February 5, 2019"
+output: 
+  html_document: 
+    toc: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r load_packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mdsr)
+```
+
+#3.2.4
+
+## **1)**
+```{r}
+ggplot(data = mpg)
+```
+
+ggplot(ata = mpg) creates a blank screen.
+
+## **2)**
+```{r}
+dim(mpg)
+```
+
+mpg has 234 rows and 11 variables
+
+## **3)**
+```{r}
+?mpg
+```
+drv describes whether a car is front, rear, or all-wheel drive.
+
+## **4)**
+```{r}
+ggplot(data = mpg, mapping = aes(x = hwy, y = cyl)) + geom_point()
+```
+
+## **5)**
+```{r}
+ggplot(data = mpg, mapping = aes(x = class, y = drv)) + geom_point()
+```
+
+The plot uses two categories as parameters. 
+
+#3.3.1
+
+## **1)**
+In order to change the points blue, the color designation must be placed outside of 'aes'.
+
+## **2)**
+manufacturer model, year, trans, drv, fl, and class are categorical.
+
+displ, cyl, cty, and hwy are continuous.
+
+## **3)**
+
