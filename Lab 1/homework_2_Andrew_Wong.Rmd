@@ -35,9 +35,7 @@ dim(mpg)
 mpg has 234 rows and 11 variables
 
 ## **3)**
-```{r}
-?mpg
-```
+
 drv describes whether a car is front, rear, or all-wheel drive.
 
 ## **4)**
@@ -60,7 +58,65 @@ In order to change the points blue, the color designation must be placed outside
 ## **2)**
 manufacturer model, year, trans, drv, fl, and class are categorical.
 
-displ, cyl, cty, and hwy are continuous.
+displ, cty, cyl, and hwy are continuous.
 
 ## **3)**
+```{r}
+ggplot(data = mpg, mapping = aes(x = drv, y = displ, color = hwy)) + geom_point()
 
+ggplot(data = mpg, mapping = aes(x = drv, y = displ, size = hwy)) + geom_point()
+
+#ggplot(data = mpg, mapping = aes(x = drv, y = displ, shape = hwy)) + geom_point() Results in an error stating "A continuous variable can not be mapped to shape"
+```
+## **4)**
+```{r}
+ggplot(data = mpg, mapping = aes(x = drv, y = displ, color = trans, shape = trans)) + geom_point()
+```
+
+## **5)**
+If a plot uses shapes, stroke will alter the border of them.
+
+## **6)**
+```{r}
+ggplot(data = mpg, mapping = aes(x = hwy, y = cyl, color = displ < 5)) + geom_point()
+```
+
+If an aesthetic is mapped to something other than a variable, the plot will indicate which points meet the conditions under the aesthetic.
+
+#3.5.1
+
+##**4)**
+Facetting can better show statistics for a certain subgroup (in this example, the car's class). 
+##**5)**
+
+In facet_wrap(), nrow and ncol set the number of columns and rows for a facet respectively.
+
+facet_grid() uses information from variables to determine the number of rows and columns.
+
+#3.6.1
+##**1)**
+geom_line() will create a line chart, geom_boxplot() creates a boxplot, geom_bar() creates a histogram, and geom_area() will make an area chart.
+
+##**2)**
+Prediction: geom_smooth(se = FALSE) will create a trendline along the points where se = FALSE.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+```
+
+Instead the se = FALSE removed geom_smooth()'s confidence interval.
+##**3)**
+
+show.legend = FALSE stops the legend from appearing on a graph. Removing it will display a graph with the legend on the side. It was removed from the example because the focus was on the shape of the graphs in question.
+
+##**4)**
+se affects the confidence interval for geom_smooth().
+
+##**5)**
+
+The graphs will look the same, if the mapping information would be the same for two different types of plots, it can be put under ggplot.
+
+#3.7.1 Question 2
+geom_col() creates a bar graph with x and y axes provided by the user. geom_bar() on the other hand only accepts an x-axis input.
