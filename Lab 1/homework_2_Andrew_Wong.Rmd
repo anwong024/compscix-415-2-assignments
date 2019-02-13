@@ -120,3 +120,8 @@ The graphs will look the same, if the mapping information would be the same for 
 
 #3.7.1 Question 2
 geom_col() creates a bar graph with x and y axes provided by the user. geom_bar() on the other hand only accepts an x-axis input.
+
+#Additional Question
+I like how most of the statistics shown are labeled and easy to understand.
+
+I would change the section that says "Data Scientists are significantly more likely to have advanced degrees than BI professionals." Of the six charts, three of them show BI professionals as higher, while they are for lower level degrees, at a glance they appear to contradict what he claims. Instead, I would only show statistics for Masters/PhD and higher.
