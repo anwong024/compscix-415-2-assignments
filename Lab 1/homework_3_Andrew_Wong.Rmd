@@ -1,0 +1,91 @@
+---
+title: "COMPSCIX 415.2 Homework 3"
+author: "Andrew Wong"
+date: "February 15, 2019"
+output: 
+  html_document: 
+    toc: yes
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r load_packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mdsr)
+library(nycflights13)
+```
+#3.8.1
+##**1)**
+The points on the plot are overlapping. One way to impove it would be to alter the alpha of the points or use geom_jitter().
+
+##**2)**
+geom_jitter() uses hieght and width to determine the spacing between overlapping points.
+
+##**3)**
+geom_jitter() affects the spacing between overlapping points. geom_count() affects the proporties of the points.
+
+##**4)**
+```{r}
+ggplot(data = mpg, mapping = aes(x = drv, y = hwy)) + geom_boxplot()
+```
+
+#3.9.1
+##**2)**
+The labs() function can change the name of various labels such as the title or captions.
+
+##**4)**
+According to the plot, a car's city milage directly affects its milage on the highway.
+
+coord_fixed() fixes the ratio between the number of units on the x and y-axes.
+
+geom_abline() creates a line with the slope of the plot.
+
+#4.4.1
+##**1)**
+
+my_variable uses a different "i" than my_variable.
+
+##**2)**
+```{r}
+#ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy)) has overlapping points
+ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy), position = "jitter")
+
+#fliter(mpg, cyl = 8) filter is misspelled and "=" needs to be "=="
+filter(mpg,cyl == 8)
+
+#filter(diamond, carat > 3) "diamond" is missing an "s"
+filter(diamonds, carat > 3)
+```
+
+
+#5.2.4
+##**1)**
+```{r}
+filter(flights, arr_delay >= 120)
+
+filter(flights, dest == "IAH" | dest == "HOU")
+
+filter(flights, carrier %in% c("AA", "UA", "DL"))
+
+filter(flights, month %in% c(7, 8, 9))
+
+filter(flights, dep_delay == 0 & arr_delay < 120)
+
+filter(flights, dep_delay - arr_delay <= 30)
+
+filter(flights, dep_time <= 600)
+```
+
+##**3)**
+```{r}
+filter(flights, is.na(dep_time) == TRUE)
+```
+
+8255 flights don't have dep_time. Other missing variables are dep_delay, arr_time, arr_delay, tailnum, and air_time. These rows represent flights that did not take off.
+
+#5.4.1
+##**1)**
