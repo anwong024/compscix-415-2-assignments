@@ -89,3 +89,10 @@ filter(flights, is.na(dep_time) == TRUE)
 
 #5.4.1
 ##**1)**
+```{r}
+select(flights, dep_time, dep_delay, arr_time, arr_delay)
+
+flights %>% select(dep_time, dep_delay, arr_time, arr_delay)
+```
+##**3)**
+one_of() tries to match strings with variables in a givin data set. If one of the characters in "vars" is not a variable in the data base, R will return a warning and still execute using one_of().
