@@ -1,0 +1,82 @@
+---
+title: "COMPSCIX 415.2 Homework 4"
+author: "Andrew Wong"
+date: "February 20, 2019"
+output: 
+  html_document: 
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mdsr)
+library(nycflights13)
+```
+
+#5.6.7
+##**2)**
+```{r}
+not_cancelled <- flights %>% filter(!is.na(dep_delay), !is.na(arr_delay))
+
+not_cancelled %>% group_by(dest) %>% summarize(n = sum(!is.na(dep_time)))
+
+not_cancelled %>% group_by(tailnum) %>% summarize(n = sum(distance))
+```
+
+##**4)**
+```{r}
+flights %>% group_by(month, day) %>% summarise(prop_cancelled = mean(is.na(dep_time)), avg_delay = mean(dep_delay, na.rm = 'TRUE')) %>% ggplot(mapping = aes(y = prop_cancelled, x = avg_delay)) + geom_point()+ geom_smooth()
+```
+There appears to be a direct relationship between the average delay and the proportion of flights cancelled.
+
+##**6)**
+```{r}
+flights %>% count(dep_time)
+
+flights %>% count(dep_time, sort = TRUE)
+```
+When applied to the count() function, the sort argument organizes the graph by n in descending order.
+
+#10.5
+##**1)**
+If you print a data.frame, the console will display every row in the data set. Printing a trbble will only show the first 10 rows.
+
+##**2)**
+```{r}
+df <- data.frame(abc = 1, xyz = "a")
+df$x #Even though there is no column named "x", the code will still execute. This could cause problems if you made a mistake.
+df[, "xyz"]
+df[, c("abc", "xyz")]
+
+dfx <- as_tibble(df)
+#dfx$x results in an error as there is no column named "X".
+dfx[, "xyz"]
+dfx[, c("abc", "xyz")]
+```
+
+##**3)**
+```{r}
+my_var <- "mpg"
+car_tib <- as_tibble(mtcars)
+mtcars[my_var]
+```
+##**6)**
+```{r}
+print(flights, n_extra = 3)#n_extra controls how many extra variables will be printed at the footer.
+
+print(flights, n_extra = 2)#n = 2, therefore the footer will list the next 2 variables of the tibble at the footer.
+```
+
+#Addidtional Question
+```{r}
+baby_data <- read_delim('C:/Users/Andy/Downloads/baby_names.txt', delim = '|')
+glimpse(baby_data)
+write_csv(baby_data, 'C:/Users/Andy/Documents/baby_names.csv')
+baby_data2 <- read_csv('C:/Users/Andy/Documents/baby_names.csv')
+glimpse(baby_data2)
+```
+
