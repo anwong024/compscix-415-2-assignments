@@ -204,6 +204,11 @@ $(document).ready(function () {
 <li><a href="#section-7"><strong>3)</strong></a></li>
 <li><a href="#section-8"><strong>6)</strong></a></li>
 </ul></li>
+<li><a href="#section-9">12.3.3</a><ul>
+<li><a href="#section-10"><strong>2)</strong></a></li>
+<li><a href="#section-11"><strong>3)</strong></a></li>
+<li><a href="#section-12"><strong>4)</strong></a></li>
+</ul></li>
 <li><a href="#addidtional-question">Addidtional Question</a></li>
 </ul>
 </div>
@@ -393,6 +398,60 @@ mtcars[my_var]</code></pre>
 ## 10  2013     1     1      558            600        -2      753
 ## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
 ## #   arr_delay &lt;dbl&gt;, ...</code></pre>
+</div>
+</div>
+<div id="section-9" class="section level1">
+<h1>12.3.3</h1>
+<div id="section-10" class="section level2">
+<h2><strong>2)</strong></h2>
+<p>1999 and 2000 without quotes are considered numbers whereas 1999 and 2000 are considered strings. In order to pull data under 1999 and 2000, the years must be put under quotations marks.</p>
+</div>
+<div id="section-11" class="section level2">
+<h2><strong>3)</strong></h2>
+<pre class="r"><code> people &lt;- tribble(
+   ~name,             ~key,    ~value,
+   #-----------------|--------|------
+   &quot;Phillip Woods&quot;,   &quot;age&quot;,       45,
+   &quot;Phillip Woods&quot;,   &quot;height&quot;,   186,
+   &quot;Phillip Woods&quot;,   &quot;age&quot;,       50,
+   &quot;Jessica Cordero&quot;, &quot;age&quot;,       37,
+   &quot;Jessica Cordero&quot;, &quot;height&quot;,   156
+ )
+#spread() will result in an error as Phillip has duplicate entries under &quot;age&quot;
+
+ people &lt;- tribble(
+    ~name,             ~key,    ~value, ~obs,
+    #-----------------|--------|-------|-----
+    &quot;Phillip Woods&quot;,   &quot;age&quot;,       45,  1,
+    &quot;Phillip Woods&quot;,   &quot;height&quot;,   186,  1,
+    &quot;Phillip Woods&quot;,   &quot;age&quot;,       50,  2,
+    &quot;Jessica Cordero&quot;, &quot;age&quot;,       37,  1,
+    &quot;Jessica Cordero&quot;, &quot;height&quot;,   156,  1
+  )#The obs column ensures the two age entries unique
+ people %&gt;% spread(key, value)</code></pre>
+<pre><code>## # A tibble: 3 x 4
+##   name              obs   age height
+##   &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Jessica Cordero     1    37    156
+## 2 Phillip Woods       1    45    186
+## 3 Phillip Woods       2    50     NA</code></pre>
+</div>
+<div id="section-12" class="section level2">
+<h2><strong>4)</strong></h2>
+<pre class="r"><code>preg &lt;- tribble(
+  ~pregnant, ~male, ~female,
+  &quot;yes&quot;,     NA,    10,
+  &quot;no&quot;,      20,    12
+)</code></pre>
+<p>The variables for this data set are: gender(male or female), pregnant (yes or no), and how many ( responses for either yes or no)</p>
+<pre class="r"><code>preg %&gt;% gather(male, female, key = &quot;gender&quot;, value = &quot;how many&quot;)</code></pre>
+<pre><code>## # A tibble: 4 x 3
+##   pregnant gender `how many`
+##   &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;
+## 1 yes      male           NA
+## 2 no       male           20
+## 3 yes      female         10
+## 4 no       female         12</code></pre>
 </div>
 </div>
 <div id="addidtional-question" class="section level1">

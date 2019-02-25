@@ -71,6 +71,50 @@ print(flights, n_extra = 3)#n_extra controls how many extra variables will be pr
 print(flights, n_extra = 2)#n = 2, therefore the footer will list the next 2 variables of the tibble at the footer.
 ```
 
+#12.3.3
+##**2)**
+1999 and 2000 without quotes are considered numbers whereas 1999 and 2000 are considered strings. In order to pull data under 1999 and 2000, the years must be put under quotations marks.
+
+##**3)**
+```{r}
+ people <- tribble(
+   ~name,             ~key,    ~value,
+   #-----------------|--------|------
+   "Phillip Woods",   "age",       45,
+   "Phillip Woods",   "height",   186,
+   "Phillip Woods",   "age",       50,
+   "Jessica Cordero", "age",       37,
+   "Jessica Cordero", "height",   156
+ )
+#spread() will result in an error as Phillip has duplicate entries under "age"
+
+ people <- tribble(
+    ~name,             ~key,    ~value, ~obs,
+    #-----------------|--------|-------|-----
+    "Phillip Woods",   "age",       45,  1,
+    "Phillip Woods",   "height",   186,  1,
+    "Phillip Woods",   "age",       50,  2,
+    "Jessica Cordero", "age",       37,  1,
+    "Jessica Cordero", "height",   156,  1
+  )#The obs column ensures the two age entries unique
+ people %>% spread(key, value)
+```
+
+##**4)**
+```{r}
+preg <- tribble(
+  ~pregnant, ~male, ~female,
+  "yes",     NA,    10,
+  "no",      20,    12
+)
+```
+The variables for this data set are: gender(male or female), pregnant (yes or no), and how many ( responses for either yes or no)
+```{r}
+preg %>% gather(male, female, key = "gender", value = "how many")
+```
+
+
+
 #Addidtional Question
 ```{r}
 baby_data <- read_delim('C:/Users/Andy/Downloads/baby_names.txt', delim = '|')
