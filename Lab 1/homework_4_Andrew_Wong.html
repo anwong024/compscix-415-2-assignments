@@ -209,6 +209,10 @@ $(document).ready(function () {
 <li><a href="#section-11"><strong>3)</strong></a></li>
 <li><a href="#section-12"><strong>4)</strong></a></li>
 </ul></li>
+<li><a href="#section-13">12.4.3</a><ul>
+<li><a href="#section-14"><strong>1)</strong></a></li>
+<li><a href="#section-15"><strong>2)</strong></a></li>
+</ul></li>
 <li><a href="#addidtional-question">Addidtional Question</a></li>
 </ul>
 </div>
@@ -452,6 +456,62 @@ mtcars[my_var]</code></pre>
 ## 2 no       male           20
 ## 3 yes      female         10
 ## 4 no       female         12</code></pre>
+</div>
+</div>
+<div id="section-13" class="section level1">
+<h1>12.4.3</h1>
+<div id="section-14" class="section level2">
+<h2><strong>1)</strong></h2>
+<pre class="r"><code>y &lt;- tibble(x = c(&quot;a,b,c&quot;, &quot;d,e,f,g&quot;, &quot;h,i,j&quot;))
+y %&gt;% separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;))</code></pre>
+<pre><code>## Warning: Expected 3 pieces. Additional pieces discarded in 1 rows [2].</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##   one   two   three
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 a     b     c    
+## 2 d     e     f    
+## 3 h     i     j</code></pre>
+<pre class="r"><code>y %&gt;% separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;), extra = &quot;merge&quot;)#extra tells R what to do when a row has too many pieces. In this case, any extra pieces a row has will be combined into a single piece in the last column.</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##   one   two   three
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 a     b     c    
+## 2 d     e     f,g  
+## 3 h     i     j</code></pre>
+<pre class="r"><code>z &lt;-  tibble(x = c(&quot;a,b,c&quot;, &quot;d,e&quot;, &quot;f,g,i&quot;))
+z %&gt;% separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;))</code></pre>
+<pre><code>## Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [2].</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##   one   two   three
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 a     b     c    
+## 2 d     e     &lt;NA&gt; 
+## 3 f     g     i</code></pre>
+<pre class="r"><code>z %&gt;% separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;), fill = &quot;right&quot;)#fill tells R what to do when a row doesn't have enought peice. In this case, it will insert an NA on the far right column.</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##   one   two   three
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 a     b     c    
+## 2 d     e     &lt;NA&gt; 
+## 3 f     g     i</code></pre>
+</div>
+<div id="section-15" class="section level2">
+<h2><strong>2)</strong></h2>
+<pre class="r"><code>z %&gt;% separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;), fill = &quot;right&quot;, remove = FALSE)#The remove argument, set as TRUE by default, stops separate from displaying the original tibble as part of the output. </code></pre>
+<pre><code>## # A tibble: 3 x 4
+##   x     one   two   three
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 a,b,c a     b     c    
+## 2 d,e   d     e     &lt;NA&gt; 
+## 3 f,g,i f     g     i</code></pre>
+<pre class="r"><code>s &lt;- z %&gt;% separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;), fill = &quot;right&quot;)
+s %&gt;% unite(&quot;2/3&quot;, two, three, sep = ' ', remove = FALSE)#remove is set to TRUE by default which does not output the columns that were combined.</code></pre>
+<pre><code>## # A tibble: 3 x 4
+##   one   `2/3` two   three
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 a     b c   b     c    
+## 2 d     e NA  e     &lt;NA&gt; 
+## 3 f     g i   g     i</code></pre>
 </div>
 </div>
 <div id="addidtional-question" class="section level1">

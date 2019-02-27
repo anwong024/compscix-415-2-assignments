@@ -113,6 +113,25 @@ The variables for this data set are: gender(male or female), pregnant (yes or no
 preg %>% gather(male, female, key = "gender", value = "how many")
 ```
 
+#12.4.3
+##**1)**
+```{r}
+y <- tibble(x = c("a,b,c", "d,e,f,g", "h,i,j"))
+y %>% separate(x, c("one", "two", "three"))
+y %>% separate(x, c("one", "two", "three"), extra = "merge")#extra tells R what to do when a row has too many pieces. In this case, any extra pieces a row has will be combined into a single piece in the last column.
+
+z <-  tibble(x = c("a,b,c", "d,e", "f,g,i"))
+z %>% separate(x, c("one", "two", "three"))
+z %>% separate(x, c("one", "two", "three"), fill = "right")#fill tells R what to do when a row doesn't have enought peice. In this case, it will insert an NA on the far right column.
+```
+
+##**2)**
+```{r}
+z %>% separate(x, c("one", "two", "three"), fill = "right", remove = FALSE)#The remove argument, set as TRUE by default, stops separate from displaying the original tibble as part of the output. 
+
+s <- z %>% separate(x, c("one", "two", "three"), fill = "right")
+s %>% unite("2/3", two, three, sep = ' ', remove = FALSE)#remove is set to TRUE by default which does not output the columns that were combined.
+```
 
 
 #Addidtional Question
