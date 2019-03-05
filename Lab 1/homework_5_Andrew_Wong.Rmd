@@ -11,6 +11,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Git Repository: https://github.com/anwong024/compscix-415-2-assignments.git
+
 ```{r load_packages, warning=FALSE, message=FALSE}
 library(tidyverse)
 library(mdsr)
@@ -72,7 +74,7 @@ glimpse(rail_data2)
 
 - Its not immediately clear that the numbers are percentages.
 
-- 
+- The way the graphics are lined up, the Men and Women categories look like another age group.
 
 ##**2)**
 
@@ -151,4 +153,4 @@ The median distributions for each city are same. Median sales in each city trend
 Looking at the previous plot, Corpus Christi has far fewer points than other cities.
 
 ###Why might we want to filter out all cities and months with sales less than 500?
-The data could be for real estate agencies who want to know the most popular places people want to live in.
+The data could be for real estate agencies who want to know the most popular places people want to live in and when they move.
