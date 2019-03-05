@@ -1,0 +1,154 @@
+---
+title: "Homework 5/Midterm"
+author: "Andrew Wong"
+date: "March 5, 2019"
+output: 
+  html_document: 
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mdsr)
+```
+#The tidyverse packages
+
+##**1)**
+plotting - ggplot2
+
+Data munging/wrangling - dplyr
+
+Reshaping (speading and gathering) data - tidyr
+
+Importing/exporting data - readr
+
+##**2)**
+Plotting - ggplot(), geomsmooth()
+
+Data munging/wrangling - select(), filter()
+
+Reshaping data - spread(), gather()
+
+Importing/exporting data - read_delim(), write_delim()
+
+#R Basics
+
+##**1)**
+Original code: My_data.name___is.too00ooLong! <- c( 1 , 2   , 3 )
+```{r}
+My_data.name___is.too00ooLong <- c( 1 , 2   , 3 )#removed the exclimation mark.
+```
+
+
+##**2)**
+Original code: my_string <- C('has', 'an', 'error', 'in', 'it)
+```{r}
+my_string <- c('has', 'an', 'error', 'in', 'it') #used lower case 'c' and added quote to the final entry.
+```
+
+##**3)**
+Because some of the values in my_vector are strings, R converts the rest in to strings.
+
+
+#Data import/export
+
+##**1)**
+```{r}
+rail_data <- read_delim('C:/Users/andy/downloads/rail_trail.txt', delim = '|')
+glimpse(rail_data)
+
+write_delim(rail_data, delim = ',', 'C:/Users/andy/downloads/rail_trail.csv')
+rail_data2 <- read_csv('C:/Users/andy/downloads/rail_trail.csv')
+glimpse(rail_data2)
+```
+
+#Data Visualization
+##**1)**
+- The colors for the men and women graphics have their own color while the age graphics are the same color for no reason.
+
+- Its not immediately clear that the numbers are percentages.
+
+- 
+
+##**2)**
+
+```{r}
+ggplot(data = diamonds) + 
+     geom_boxplot(mapping = aes(x = cut, y = carat, fill = color), position = "identity") +
+        coord_flip() + xlab("CUT OF DIAMOND") + ylab("CARAT OF DIAMOND" )
+```
+
+
+##**3)**
+```{r}
+ggplot(data = diamonds) + 
+     geom_boxplot(mapping = aes(x = cut, y = carat, fill = color)) +
+        coord_flip() + xlab("CUT OF DIAMOND") + ylab("CARAT OF DIAMOND")
+```
+
+#Tidy Data
+##**1)**
+```{r}
+table2 %>% spread(key = type, value = count)
+
+```
+
+##**2)**
+diamonds %>% mutate(price_per_carat = price/carat)
+
+##**3)**
+```{r}
+diamonds %>% group_by(cut) %>% summarize(over_10000_and_Under_1.5 = sum(price > 10000 & carat <1.5), prop = over_10000_and_Under_1.5/n())
+```
+The results do not make sense. One would expect the number of diamonds priced above 10000 and below 1.5 carat to go down as cut quality went up since fewer high quality diamonds should have a low carat.
+
+#EDA
+
+##**1)**
+```{r}
+txhousing %>% distinct(year)
+```
+
+
+##**2)**
+```{r}
+txhousing %>% distinct(city)
+```
+
+##**3)**
+```{r}
+txhousing %>% select(year, month, city, sales) %>% arrange(desc(sales))
+```
+
+##**4)**
+More listings will lead to more sales.
+```{r}
+txhousing %>% ggplot(mapping = aes(x = sales, y = listings)) + geom_bin2d(na.rm = TRUE)
+```
+
+##**5)**
+```{r}
+txhousing %>% group_by(city) %>% summarize(prop = sum(is.na(sales))/(sum(is.na(sales)) + sum(!is.na(sales))))
+```
+
+##**6)**
+```{r}
+housing_filtered <-  txhousing %>% filter(sales > 500) 
+```
+
+###Are the distributions of the median sales price (column name median), when grouped by city, different? The same?
+```{r}
+housing_filtered %>% ggplot(mapping = aes(month, median)) + geom_point() + facet_wrap('city')
+```
+
+The median distributions for each city are same. Median sales in each city trend up and down at roughly the same time.
+
+###Any cities that stand out that you’d want to investigate further?
+Looking at the previous plot, Corpus Christi has far fewer points than other cities.
+
+###Why might we want to filter out all cities and months with sales less than 500?
+The data could be for real estate agencies who want to know the most popular places people want to live in.
