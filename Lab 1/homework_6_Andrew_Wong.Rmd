@@ -1,7 +1,7 @@
 ---
 title: "COMPSCIX 415.2 Homework 6"
 author: "Andrew Wong"
-date: "March 10, 2019"
+date: "March 12, 2019"
 output: 
   html_document: 
     toc: yes
@@ -48,6 +48,8 @@ smoke_outcome2 <- Whickham2 %>% count(smoker, outcome, age_group)
 smoke_outcome2 %>% ggplot(mapping = aes(x = smoker, y = outcome)) + geom_tile( mapping = aes(fill = n)) + geom_text(aes(label = n), color = 'white') + facet_wrap('age_group')
 ```
 
+The majority of nonsmokers who died in the data were 65 or older which made it appear that more nonsmokers died when age was ignored.
+
 #Exercise 2
 ##**1)**
 ```{r}
@@ -91,8 +93,6 @@ for(i in 1:10000) {
 
 
 mean_samp <- tibble(mean_samp)
-
-mean_samp
 ```
 
 ##**5)**
@@ -102,6 +102,34 @@ mean_samp %>% ggplot(aes(mean_samp)) + geom_histogram()
 
 ##**6)**
 ```{r}
+ex_mean <- mean_samp %>% .[['mean_samp']] %>% mean()#mean
+ex_mean
 
+ex_sd <- mean_samp %>% .[['mean_samp']] %>% sd()#standard deviation
+ex_sd
 ```
 
+##**7)**
+The mean and standard deviation are farther apart than the sample from the data set used in the first three parts.
+
+##**8)**
+```{r}
+mean_samp3 <- rep(NA, 10000)
+
+for(i in 1:10000) {
+  g_samp <- rgamma(300, shape = 1, scale = 2)
+  mean_samp3[i] <- mean(g_samp)
+}
+
+
+mean_samp3 <- tibble(mean_samp3)
+
+mean_samp3 %>% ggplot(aes(mean_samp3)) + geom_histogram()
+
+ex_mean <- mean_samp3 %>% .[['mean_samp3']] %>% mean()#mean
+ex_mean
+
+ex_sd <- mean_samp3 %>% .[['mean_samp3']] %>% sd()#standard deviation
+ex_sd
+```
+The resulting mean and standard deviation line up with the Central Limit Theorem.
