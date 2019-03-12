@@ -1,0 +1,107 @@
+---
+title: "COMPSCIX 415.2 Homework 6"
+author: "Andrew Wong"
+date: "March 10, 2019"
+output: 
+  html_document: 
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mdsr)
+library(mosaicData)
+```
+
+#Exercise 1
+##**1)**
+The Whickham data set has variables for a person's age, if they're a smoker, and whether or not they're alive (outcome).
+
+##**2)**
+There are 1314 observations, each representing a person.
+
+##**3)**
+```{r}
+smoke_outcome <- Whickham %>% count(smoker, outcome)
+
+smoke_outcome
+
+smoke_outcome %>% ggplot(mapping = aes(x = smoker, y = outcome)) + geom_tile( mapping = aes(fill = n)) + geom_text(aes(label = n), color = 'white')
+```
+
+Looking at the plot, more people who said they didn't smoke died than those who said they did. One would assume the opposite to be true.
+
+##**4)**
+```{r}
+Whickham2 <- Whickham %>% mutate(age_group = 
+                                   factor(case_when(age <= 44 ~ '44 or younger', 
+                                          age > 44 & age <= 64 ~ '45 to 64', 
+                                          age > 64 ~ '65 or older'), 
+                                 levels = c('44 or younger', '45 to 64', '65 or older')))
+
+smoke_outcome2 <- Whickham2 %>% count(smoker, outcome, age_group)
+
+smoke_outcome2 %>% ggplot(mapping = aes(x = smoker, y = outcome)) + geom_tile( mapping = aes(fill = n)) + geom_text(aes(label = n), color = 'white') + facet_wrap('age_group')
+```
+
+#Exercise 2
+##**1)**
+```{r}
+n <- 10000
+
+gamma_samp <- tibble(x = rgamma(n, shape = 1, scale = 2))
+
+gamma_samp %>% ggplot() + geom_histogram(mapping = aes(x = x))
+```
+
+##**2)**
+```{r}
+ex_samp <- gamma_samp %>% .[['x']] %>% mean() #mean
+ex_samp
+
+sd_samp <- gamma_samp %>% .[['x']] %>% sd() #standard deviation
+sd_samp
+```
+
+##**3)**
+```{r}
+gamma_samp2 <- tibble(x = rgamma(n = 30, shape = 1, scale = 2))
+
+gamma_samp2 %>% ggplot() + geom_histogram(mapping = aes(x = x))
+
+ex_samp2 <- gamma_samp2 %>% .[['x']] %>% mean() #mean
+ex_samp2
+
+sd_samp2 <- gamma_samp2 %>% .[['x']] %>% sd() #standard deviation
+sd_samp2
+```
+
+##**4)**
+```{r}
+mean_samp <- rep(NA, 10000)
+
+for(i in 1:10000) {
+  g_samp <- rgamma(30, shape = 1, scale = 2)
+  mean_samp[i] <- mean(g_samp)
+}
+
+
+mean_samp <- tibble(mean_samp)
+
+mean_samp
+```
+
+##**5)**
+```{r}
+mean_samp %>% ggplot(aes(mean_samp)) + geom_histogram()
+```
+
+##**6)**
+```{r}
+
+```
+
