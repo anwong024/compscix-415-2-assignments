@@ -11,7 +11,7 @@
 
 <meta name="author" content="Andrew Wong" />
 
-<meta name="date" content="2019-03-18" />
+<meta name="date" content="2019-03-19" />
 
 <title>Homework 7</title>
 
@@ -187,7 +187,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Homework 7</h1>
 <h4 class="author"><em>Andrew Wong</em></h4>
-<h4 class="date"><em>March 18, 2019</em></h4>
+<h4 class="date"><em>March 19, 2019</em></h4>
 
 </div>
 
@@ -203,6 +203,8 @@ $(document).ready(function () {
 <li><a href="#are-the-features-practically-significant">Are the features practically significant?</a></li>
 <li><a href="#is-the-model-a-good-fit">Is the model a good fit?</a></li>
 </ul></li>
+<li><a href="#exercise-5">Exercise 5</a></li>
+<li><a href="#exercise-6">Exercise 6</a></li>
 </ul>
 </div>
 
@@ -348,8 +350,12 @@ SalePrice_Reg_Solo</code></pre>
 ## Coefficients:
 ## (Intercept)  
 ##      180921</code></pre>
-<pre class="r"><code>summary(SalePrice_Reg_Solo)$r.squared</code></pre>
-<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>glance(SalePrice_Reg_Solo)</code></pre>
+<pre><code>## # A tibble: 1 x 11
+##   r.squared adj.r.squared  sigma statistic p.value    df  logLik    AIC
+##       &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1         0             0 79443.        NA      NA     1 -18544. 37092.
+## # ... with 3 more variables: BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;</code></pre>
 </div>
 <div id="exercise-4" class="section level1">
 <h1>Exercise 4</h1>
@@ -415,6 +421,148 @@ train_lm</code></pre>
 <h2>Is the model a good fit?</h2>
 <p>The model is a good fit.</p>
 </div>
+</div>
+<div id="exercise-5" class="section level1">
+<h1>Exercise 5</h1>
+<pre class="r"><code> lm(formula = SalePrice ~ LotConfig, data = choochoo)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = SalePrice ~ LotConfig, data = choochoo)
+## 
+## Coefficients:
+##      (Intercept)  LotConfigCulDSac      LotConfigFR2      LotConfigFR3  
+##           181623             42231             -3689             26852  
+##  LotConfigInside  
+##            -4685</code></pre>
+<pre class="r"><code> lm(formula = SalePrice ~ MSZoning, data = choochoo)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = SalePrice ~ MSZoning, data = choochoo)
+## 
+## Coefficients:
+## (Intercept)   MSZoningFV   MSZoningRH   MSZoningRL   MSZoningRM  
+##       74528       139486        57030       116477        51789</code></pre>
+<pre class="r"><code> lm(formula = SalePrice ~ LotShape, data = choochoo)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = SalePrice ~ LotShape, data = choochoo)
+## 
+## Coefficients:
+## (Intercept)  LotShapeIR2  LotShapeIR3  LotShapeReg  
+##      206102        33732         9935       -41347</code></pre>
+</div>
+<div id="exercise-6" class="section level1">
+<h1>Exercise 6</h1>
+<pre class="r"><code>sim1a &lt;- tibble(
+  x = rep(1:10, each = 3),
+  y = x * 1.5 + 6 + rt(length(x), df = 2)
+)
+
+
+sim2a &lt;- tibble(
+  x = rep(1:10, each = 3),
+  y = x * 1.5 + 6 + rt(length(x), df = 2)
+)
+
+
+sim3a &lt;- tibble(
+  x = rep(1:10, each = 3),
+  y = x * 1.5 + 6 + rt(length(x), df = 2)
+)
+
+
+sim4a &lt;- tibble(
+  x = rep(1:10, each = 3),
+  y = x * 1.5 + 6 + rt(length(x), df = 2)
+)
+
+
+sim5a &lt;- tibble(
+  x = rep(1:10, each = 3),
+  y = x * 1.5 + 6 + rt(length(x), df = 2)
+)
+
+sim1a_lm &lt;- lm(x~y,sim1a)
+
+sim2a_lm &lt;- lm(x~y,sim2a)
+
+sim3a_lm &lt;- lm(x~y,sim3a)
+
+sim4a_lm &lt;- lm(x~y,sim4a)
+
+sim5a_lm &lt;- lm(x~y,sim5a)
+
+sim1a_lm</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = x ~ y, data = sim1a)
+## 
+## Coefficients:
+## (Intercept)            y  
+##    0.005859     0.351503</code></pre>
+<pre class="r"><code>glance(sim1a_lm)</code></pre>
+<pre><code>## # A tibble: 1 x 11
+##   r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.472         0.453  2.16      25.0 2.77e-5     2  -64.6  135.  140.
+## # ... with 2 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;</code></pre>
+<pre class="r"><code>sim2a_lm</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = x ~ y, data = sim2a)
+## 
+## Coefficients:
+## (Intercept)            y  
+##     -0.2280       0.4203</code></pre>
+<pre class="r"><code>glance(sim2a_lm)</code></pre>
+<pre><code>## # A tibble: 1 x 11
+##   r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.733         0.724  1.53      77.1 1.57e-9     2  -54.4  115.  119.
+## # ... with 2 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;</code></pre>
+<pre class="r"><code>sim3a_lm</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = x ~ y, data = sim3a)
+## 
+## Coefficients:
+## (Intercept)            y  
+##     -2.1585       0.5394</code></pre>
+<pre class="r"><code>glance(sim3a_lm)</code></pre>
+<pre><code>## # A tibble: 1 x 11
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.867         0.862  1.09      182. 9.12e-14     2  -44.0  94.0  98.2
+## # ... with 2 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;</code></pre>
+<pre class="r"><code>sim4a_lm</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = x ~ y, data = sim4a)
+## 
+## Coefficients:
+## (Intercept)            y  
+##     -1.8516       0.5081</code></pre>
+<pre class="r"><code>glance(sim4a_lm)</code></pre>
+<pre><code>## # A tibble: 1 x 11
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.776         0.768  1.41      97.1 1.34e-10     2  -51.8  110.  114.
+## # ... with 2 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;</code></pre>
+<pre class="r"><code>sim5a_lm</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = x ~ y, data = sim5a)
+## 
+## Coefficients:
+## (Intercept)            y  
+##     -2.4256       0.5366</code></pre>
+<pre class="r"><code>glance(sim5a_lm)</code></pre>
+<pre><code>## # A tibble: 1 x 11
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.801         0.794  1.33      113. 2.52e-11     2  -50.0  106.  110.
+## # ... with 2 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;</code></pre>
+<p>The Coefficients and R squared are all within a certain range but there’s no discernable pattern.</p>
 </div>
 
 

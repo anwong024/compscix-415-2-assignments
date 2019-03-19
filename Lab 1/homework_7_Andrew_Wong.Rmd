@@ -1,7 +1,7 @@
 ---
 title: "Homework 7"
 author: "Andrew Wong"
-date: "March 18, 2019"
+date: "March 19, 2019"
 output: 
   html_document: 
     toc: yes
@@ -41,7 +41,7 @@ SalePrice_Reg_Solo <- lm(formula = SalePrice ~ 1, data = choochoo)
 
 SalePrice_Reg_Solo
 
-summary(SalePrice_Reg_Solo)$r.squared
+glance(SalePrice_Reg_Solo)
 ```
 
 #Exercise 4
@@ -67,3 +67,72 @@ Yes, the features make realistic sense.
 
 ##Is the model a good fit?
 The model is a good fit.
+
+#Exercise 5
+```{r}
+ lm(formula = SalePrice ~ LotConfig, data = choochoo)
+
+ lm(formula = SalePrice ~ MSZoning, data = choochoo)
+ 
+ lm(formula = SalePrice ~ LotShape, data = choochoo)
+```
+
+
+#Exercise 6
+```{r}
+sim1a <- tibble(
+  x = rep(1:10, each = 3),
+  y = x * 1.5 + 6 + rt(length(x), df = 2)
+)
+
+
+sim2a <- tibble(
+  x = rep(1:10, each = 3),
+  y = x * 1.5 + 6 + rt(length(x), df = 2)
+)
+
+
+sim3a <- tibble(
+  x = rep(1:10, each = 3),
+  y = x * 1.5 + 6 + rt(length(x), df = 2)
+)
+
+
+sim4a <- tibble(
+  x = rep(1:10, each = 3),
+  y = x * 1.5 + 6 + rt(length(x), df = 2)
+)
+
+
+sim5a <- tibble(
+  x = rep(1:10, each = 3),
+  y = x * 1.5 + 6 + rt(length(x), df = 2)
+)
+
+sim1a_lm <- lm(x~y,sim1a)
+
+sim2a_lm <- lm(x~y,sim2a)
+
+sim3a_lm <- lm(x~y,sim3a)
+
+sim4a_lm <- lm(x~y,sim4a)
+
+sim5a_lm <- lm(x~y,sim5a)
+
+sim1a_lm
+glance(sim1a_lm)
+
+sim2a_lm
+glance(sim2a_lm)
+
+sim3a_lm
+glance(sim3a_lm)
+
+sim4a_lm
+glance(sim4a_lm)
+
+sim5a_lm
+glance(sim5a_lm)
+```
+
+The Coefficients and R squared are all within a certain range but there's no discernable pattern.
