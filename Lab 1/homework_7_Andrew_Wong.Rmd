@@ -1,0 +1,69 @@
+---
+title: "Homework 7"
+author: "Andrew Wong"
+date: "March 18, 2019"
+output: 
+  html_document: 
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mdsr)
+library(broom)
+```
+
+#Exercise 1
+```{r}
+choochoo <- read_delim('C:/Users/andy/documents/train.csv', delim = ',')
+glimpse(choochoo)
+```
+The train data set has 81 columns and 1460 observations
+
+#Exercise 2
+```{r}
+choochoo %>% ggplot(aes(SalePrice)) + geom_histogram()
+
+choochoo %>% ggplot(aes(Neighborhood, SalePrice)) + geom_col() + coord_flip()
+
+choochoo %>% ggplot(aes(OverallQual, SalePrice)) + geom_col()
+```
+
+#Exercise 3
+```{r}
+mean(choochoo$SalePrice)
+
+SalePrice_Reg_Solo <- lm(formula = SalePrice ~ 1, data = choochoo)
+
+SalePrice_Reg_Solo
+
+summary(SalePrice_Reg_Solo)$r.squared
+```
+
+#Exercise 4
+```{r}
+train_lm <- lm(formula = SalePrice ~ GrLivArea + OverallQual + Neighborhood, data = choochoo)
+
+train_lm
+```
+##How would you interpret the coefficients on GrLivArea and OverallQual?
+As the ground area increases, the sale price increases by $55.56. As the overall quality increases, the sale price increases by $20951.42.
+
+##How would you interpret the coefficient on NeighborhoodBrkSide?
+The more locations in Brookside there are, the lower the sale price will be.
+
+##Are the features significant?
+```{r}
+tidy(train_lm)
+```
+Yes, the p-values are all under .05.
+
+##Are the features practically significant?
+Yes, the features make realistic sense.
+
+##Is the model a good fit?
+The model is a good fit.
