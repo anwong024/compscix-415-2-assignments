@@ -1,0 +1,40 @@
+---
+title: "Homework 8"
+author: "Andrew Wong"
+date: "March 24, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mdsr)
+library(leaflet)
+library(jsonlite)
+library(rgdal)
+library(htmltools)
+```
+
+```{r}
+url <- paste0("https://api.jcdecaux.com/vls/v1/stations?contract=",'Dublin',"&apiKey=ffdf63dbeea26cc14f91f4ee50c00a74068ec866")
+
+map_it <- function(city){
+  
+ 
+  tbmap <- as_tibble(fromJSON(paste0("https://api.jcdecaux.com/vls/v1/stations?contract=",city,"&apiKey=ffdf63dbeea26cc14f91f4ee50c00a74068ec866"),
+                              flatten = TRUE))
+  my_map <- leaflet() %>%
+     addTiles() %>%
+     addMarkers(lng = ~position.lng, lat = ~position.lat, label = ~available_bikes, data = tbmap)
+  
+  my_map
+  
+}
+
+map_it('Luxembourg')
+```
+
+
