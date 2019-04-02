@@ -1,0 +1,112 @@
+---
+title: "Homework 9/Final"
+author: "Andrew Wong"
+date: "March 30, 2019"
+output: 
+  html_document: 
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mdsr)
+library(broom)
+```
+
+#Exercise 1
+
+##Step 1
+```{r}
+samp_fun <- function(samp_size, samp_rate) {
+  
+  samp <- rexp(n = samp_size, rate = samp_rate)
+  
+  samp_avg <-  mean(samp)
+  
+  samp_std_dev <- sd(samp)
+  
+  stats <- list(samp_avg = samp_avg, samp_std_dev = samp_std_dev)
+  return(stats)
+}
+```
+
+##Step 2
+```{r}
+sample_means <- rep(NA, 1000)
+
+sample_sds <- rep(NA, 1000)
+
+for (i in 1:1000) {
+  
+  samp_run <- samp_fun(50, 1/10000)
+  
+  sample_means[i] <- samp_run$samp_avg
+  
+  sample_sds[i] <- samp_run$samp_std_dev
+  
+}
+
+sample_stat <- list(samp_mean = sample_means, samp_sd = sample_sds)
+```
+##Step 3
+```{r}
+mean_plot <- as_tibble(sample_stat) %>% ggplot() + geom_histogram(aes(samp_mean))
+
+mean_plot
+
+sd(sample_stat$samp_mean)
+
+theo_error <- 10000/sqrt(50)
+
+theo_error
+
+mean_sd <- mean(sample_stat$samp_sd)
+
+mean_sd
+
+
+```
+
+##Step 4
+```{r}
+sample_means2 <- rep(NA, 1000)
+
+sample_sds2 <- rep(NA, 1000)
+
+for (i in 1:1000) {
+  
+  samp_run2 <- samp_fun(5000, 1/10000)
+  
+  sample_means2[i] <- samp_run2$samp_avg
+  
+  sample_sds2[i] <- samp_run2$samp_std_dev
+  
+}
+
+sample_stat2 <- list(samp_mean2 = sample_means2, samp_sd2 = sample_sds2)
+
+mean_plot2 <- as_tibble(sample_stat2) %>% ggplot() + geom_histogram(aes(samp_mean2))
+
+mean_plot2
+
+sd(sample_stat2$samp_mean2)
+
+theo_error <- 10000/sqrt(5000)
+
+theo_error
+
+mean_sd2 <- mean(sample_stat2$samp_sd2)
+
+mean_sd2
+```
+
+#Exercise 2
+
+```{r}
+
+```
+
