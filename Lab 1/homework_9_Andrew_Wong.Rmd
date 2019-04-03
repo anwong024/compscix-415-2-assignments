@@ -107,6 +107,33 @@ mean_sd2
 #Exercise 2
 
 ```{r}
+choochoo <- read_delim('C:/Users/andy/documents/train.csv', delim = ',')
 
+train_reg <- lm(formula = SalePrice ~ LotArea + OverallQual + ExterQual, data = choochoo)
+
+glance(train_reg)$r.squared
+
+train_reg
 ```
 
+##Interpret the coefficient on LotArea
+The price of the Lot increases by $1.45 per square foot.
+
+##Interpret the coefficient on ExterQualGd
+Area's rated "good" cost $71529.49 more than those rated "poor".
+
+##Compare this model to the model we fit in HW 7 with GrLivArea, OverallQual, Neighborhood. Which is the better fitting model?
+```{r}
+train_lm <- lm(formula = SalePrice ~ GrLivArea + OverallQual + Neighborhood, data = choochoo)
+
+glance(train_lm)$r.squared
+
+glance(train_reg)$r.squared
+```
+
+The HW 7 model fits better.
+
+#Exercise 3
+```{r}
+test_dat <- read_delim('C:/Users/andy/dropboxtest/ab_test_data.csv', delim = ',')
+```
