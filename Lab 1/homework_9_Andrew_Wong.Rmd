@@ -1,7 +1,7 @@
 ---
 title: "Homework 9/Final"
 author: "Andrew Wong"
-date: "March 30, 2019"
+date: "April 4, 2019"
 output: 
   html_document: 
     toc: yes
@@ -120,20 +120,48 @@ train_reg
 The price of the Lot increases by $1.45 per square foot.
 
 ##Interpret the coefficient on ExterQualGd
-Area's rated "good" cost $71529.49 more than those rated "poor".
+The difference in price between "Poor" areas and "Good" areas is -$71529.49. A "Good" area is more expensive than a "Poor" one.
 
 ##Compare this model to the model we fit in HW 7 with GrLivArea, OverallQual, Neighborhood. Which is the better fitting model?
 ```{r}
-train_lm <- lm(formula = SalePrice ~ GrLivArea + OverallQual + Neighborhood, data = choochoo)
+train_lm <- lm(formula = SalePrice ~ GrLivArea + OverallQual + Neighborhood, data = choochoo)#regression from HW 7
 
 glance(train_lm)$r.squared
 
 glance(train_reg)$r.squared
 ```
 
-The HW 7 model fits better.
+The HW 7 model has a higher R squared and therefore is better fit.
 
 #Exercise 3
 ```{r}
-test_dat <- read_delim('C:/Users/andy/dropboxtest/ab_test_data.csv', delim = ',')
+test_dat <- read_delim('C:/Users/andy/dropbox/ab_test_data.csv', delim = ',')
 ```
+
+##a. What proportion of visitors converted for each version of the webpage?
+```{r}
+test_dat_a <- test_dat %>% filter(version == 'A')
+
+prop_a <- mean(test_dat_a$conversion, na.rm = TRUE)
+
+test_dat_b <- test_dat %>% filter(version == 'B')
+
+prop_b <- mean(test_dat_a$conversion, na.rm = TRUE)
+
+prop_a
+prop_b
+```
+
+##b. Perform the AB test in R. What is the p-value for the AB test (hypothesis test of proportions)?
+```{r}
+size_a <- count(test_dat_a)$n #count() returns a tibble with one column named "n"
+size_b <- count(test_dat_b)$n
+
+samp_a <- rbinom(n = 1, size = size_a, prob = prop_a)
+samp_b <- rbinom(n = 1, size = size_b, prob = prop_b)
+
+prop_test_ab <- prop.test(c(samp_a, samp_b), c(size_a, size_b))
+prop_test_ab$p.value
+```
+
+
